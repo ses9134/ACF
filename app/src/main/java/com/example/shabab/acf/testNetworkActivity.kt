@@ -71,8 +71,8 @@ class testNetworkActivity : AppCompatActivity() {
 
 
         //val url = "https://api.letsbuildthatapp.com/youtube/home_feed"
-        val url = "http://129.21.147.63:5000/pets/name/" + requestedPetName
-
+        //val url = "http://129.21.145.159:5000/pets/name/" + requestedPetName
+        val url = "http://192.168.10.1:5000/pets/name/" + requestedPetName
         // declare a request based on the url
         val request = Request.Builder().url(url).build()
 
@@ -139,7 +139,7 @@ class testNetworkActivity : AppCompatActivity() {
 }
 
 // this will be used for the project
-class PetInfo(val name: String, val age: Int, val weight: Int, val feed_times: List<Int>)
+class PetInfo(val name: String, val age: String, val weight: String, val feed_times: List<String>)
 
 // this is for a temporary JSON test
 class HomeFeed(val videos: List<Video>)

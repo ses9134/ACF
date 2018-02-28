@@ -19,8 +19,16 @@ class StartScreen : AppCompatActivity() {
     fun launchTestNetworkActivity(view: View) {
         // Create an Intent to start the TestNetwork Activity
         val testNetworkIntent = Intent(this, testNetworkActivity::class.java)
+        val addPetIntent = Intent(this, addPetPage::class.java)
         // Start the TestNetwork Activity
         startActivity(testNetworkIntent)
+    }
+
+    fun launchAddPetPageActivity(view: View) {
+        // Create an Intent to start the Add Pet Page Activity
+        val addPetIntent = Intent(this, addPetPage::class.java)
+        // Start the TestNetwork Activity
+        startActivity(addPetIntent)
     }
 
 
