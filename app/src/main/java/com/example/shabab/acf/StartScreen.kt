@@ -1,6 +1,7 @@
 package com.example.shabab.acf
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -16,10 +17,9 @@ class StartScreen : AppCompatActivity() {
     }
 
 
-    fun launchTestNetworkActivity(view: View) {
+    fun launchGetPetInfoTestActivity(view: View) {
         // Create an Intent to start the TestNetwork Activity
-        val testNetworkIntent = Intent(this, testNetworkActivity::class.java)
-        val addPetIntent = Intent(this, addPetPage::class.java)
+        val testNetworkIntent = Intent(this, getPetInfoTestActivity::class.java)
         // Start the TestNetwork Activity
         startActivity(testNetworkIntent)
     }
@@ -27,8 +27,20 @@ class StartScreen : AppCompatActivity() {
     fun launchAddPetPageActivity(view: View) {
         // Create an Intent to start the Add Pet Page Activity
         val addPetIntent = Intent(this, addPetPage::class.java)
-        // Start the TestNetwork Activity
+        // Start the AddPetPage Activity
         startActivity(addPetIntent)
+    }
+
+    fun launchConnectToFeederActivity(view: View) {
+        // Create an Intent to start the Add Pet Page Activity
+        val connectToFeederIntent = Intent(this, connectToFeederActivity::class.java)
+        // Start the ConnectToFeeder Activity
+        startActivity(connectToFeederIntent)
+    }
+
+    fun playMeowSound(view: View){
+        val mp = MediaPlayer.create(this, R.raw.catmeow)
+        mp.start()
     }
 
 

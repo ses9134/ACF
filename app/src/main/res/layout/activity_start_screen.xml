@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainBackground"
+
 
     tools:context="com.example.shabab.acf.StartScreen"
     tools:layout_editor_absoluteY="81dp">
+
 
     <TextView
         android:id="@+id/textView2"
@@ -18,7 +21,7 @@
         android:text="Automated Cat Feeder"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="30sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +38,7 @@
         android:background="@color/buttonBackground"
         android:lineSpacingExtra="10sp"
         android:text="  CONNECT TO A FEEDER  "
+        android:onClick="launchConnectToFeederActivity"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -50,8 +54,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="36dp"
-        android:onClick="launchTestNetworkActivity"
+        android:layout_marginLeft="36dp"
+        android:onClick="launchGetPetInfoTestActivity"
         android:text="Request Pet Test"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button3"
@@ -65,6 +71,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="playMeowSound"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
         android:layout_marginTop="8dp"
         android:text="Add Pet Test"
         android:onClick="launchAddPetPageActivity"
