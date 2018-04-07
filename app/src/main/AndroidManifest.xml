@@ -18,15 +18,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".addPetPage"
-                  android:screenOrientation="portrait"
-                  android:configChanges="keyboard|orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".connectToFeederActivity"
-                  android:screenOrientation="portrait"
-                  android:configChanges="keyboard|orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".getPetInfoTestActivity"
-                  android:screenOrientation="portrait"
-                  android:configChanges="keyboard|orientation|keyboardHidden|screenSize"></activity>
+        <activity
+            android:name=".addPetPage"
+            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".connectToFeederActivity"
+            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".getPetInfoTestActivity"
+            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity android:name=".petListProfilePage"></activity>
     </application>
 
 </manifest>
