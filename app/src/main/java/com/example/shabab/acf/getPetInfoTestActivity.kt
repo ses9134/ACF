@@ -26,10 +26,8 @@ class getPetInfoTestActivity : AppCompatActivity() {
             // fetch JSON to get pet information
             fetchPetInfoJSON(requestedPetName)
 
-            val jsonPet = PetInfo(petNameTextView.text.toString(), petAgeTextView.text.toString(), petWeightTextView.text.toString(), Array(1, {petFeedTimeTextView.text.toString()}))
-            val requestedPet = Pet(jsonPet.name, jsonPet.age.toInt(), Array(1, { FeedTime('M', jsonPet.feed_times[0].toString(), 1.5.toFloat()) }), 0)
 
-            println(requestedPet.name)
+            //println(requestedPet.name)
 
         }
         catch (e: Exception){
@@ -54,11 +52,13 @@ class getPetInfoTestActivity : AppCompatActivity() {
                 // occurs on response
                 override fun onResponse(call: Call?, response: Response?) {
                     // get the JSON as a string
-
+                    println("Removed " + requestedPetName + " from ACF")
                 }
                 override fun onFailure(call: Call?, e: IOException?) {
                 }
             })
+
+
         }
         catch (e: Exception){
             val JSONFailNotificationToast = Toast.makeText(this, "Could not delete pet info :(", Toast.LENGTH_SHORT)
@@ -89,8 +89,8 @@ class getPetInfoTestActivity : AppCompatActivity() {
                 val gson = GsonBuilder().create()
                 try{
                     // Process the JSON message into a PetInfo instance
-                    val basicPetInfo = gson.fromJson(body, PetInfo::class.java)
-
+                    val basicPetInfo = gson.fromJson(body, Pet::class.java)
+                    println("BLOOO")
 
                     runOnUiThread(){
                         if(requestedPetName.equals(basicPetInfo.name) || requestedPetName.toLowerCase().equals(basicPetInfo.name))
@@ -98,12 +98,11 @@ class getPetInfoTestActivity : AppCompatActivity() {
                             println(basicPetInfo.name)
                             println(basicPetInfo.age.toString())
                             println(basicPetInfo.weight.toString())
-                            println(basicPetInfo.feed_times.toString())
 
                             petNameTextView.text = basicPetInfo.name
                             petAgeTextView.text = basicPetInfo.age.toString()
                             petWeightTextView.text = basicPetInfo.weight.toString()
-                            petFeedTimeTextView.text = basicPetInfo.feed_times.toString()
+                            //petFeedTimeTextView.text = basicPetInfo.feed_times.toString()
                         }
                         else
                         {
@@ -115,7 +114,8 @@ class getPetInfoTestActivity : AppCompatActivity() {
                     }
                 }catch (e: Exception)
                 {
-
+                    println("ERROR in fetchPetInfoJSON.")
+                    println(e)
                 }
             }
             override fun onFailure(call: Call?, e: IOException?) {
@@ -123,14 +123,3 @@ class getPetInfoTestActivity : AppCompatActivity() {
         })
     }
 }
-
-
-
-
-
-// this is for a temporary JSON test
-class HomeFeed(val videos: List<Video>)
-class Video(val id: Int, val name: String, val link: String, val imageURL: String,
-            val numberOfViews: Int, val channel: Channel )
-class Channel(val name: String, val profileImageUrl: String)
-

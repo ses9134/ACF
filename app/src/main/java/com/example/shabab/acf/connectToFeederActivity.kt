@@ -4,7 +4,9 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.NetworkOnMainThreadException
 import android.view.View
+import android.widget.Toast
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_connect_to_feeder.*
 import kotlinx.android.synthetic.main.activity_get_pet_info_test.*
@@ -20,19 +22,39 @@ class connectToFeederActivity : AppCompatActivity() {
     }
 
     fun launchPetListProfilePage(view: View) {
-        getPetListInfo()
-        // create a GSON builder to process the JSON message
-        val gson = GsonBuilder().create()
-        val petListJSONString =  petListJSONtextView.text //gson.fromJson(petListJSONtextView.text.toString(), PetInfo::class.java)
-        // Create an Intent to start the TestNetwork Activity
-        val petProfileListIntent = Intent(this, petListProfilePage::class.java)
-        // Start the TestNetwork Activity
-        startActivity(petProfileListIntent)
+        // make the request to get all pets
+        getAllPets()
+        println(petListJSONString)
+
+        if (canContinue == 1)
+        {
+            canContinue = 0
+            playMeowSound()
+            // Create an Intent to start the TestNetwork Activity
+            val petProfileListIntent = Intent(this, petListProfilePage::class.java)
+            // Start the TestNetwork Activity
+            startActivity(petProfileListIntent)
+        }
+        else if (canContinue == 0)
+        {
+            val confirmationToast = Toast.makeText(this, "Select CONNECT again to confirm connection", Toast.LENGTH_SHORT)
+            confirmationToast.show()
+        }
+        else
+        {
+            val errorToast = Toast.makeText(this, "Did not receive all pets. Try Again.", Toast.LENGTH_SHORT)
+            errorToast.show()
+        }
+
     }
 
-
-    fun getPetListInfo(){
-
+    /**
+     * Created by Shabab on 4/10/2018.
+     * Method: getAllPets
+     * Description: This method makes a request to get all the pets
+     *              from the database
+     */
+    fun getAllPets(){
         // instantiate an OkHttpClient and create a Request object
         val client = OkHttpClient()
         val url = "http://" + ACF_IP_ADDRESS + "/pets/"
@@ -41,33 +63,39 @@ class connectToFeederActivity : AppCompatActivity() {
 
         // use enqueue to request a JSON
         client.newCall(request).enqueue(object: Callback {
-
             // occurs on response
             override fun onResponse(call: Call?, response: Response?) {
                 // get the JSON as a string
                 val body = response?.body()?.string()
                 // print the JSON text for debug
-                println(body)
-
+                //println(body)
                 try{
-
                     runOnUiThread(){
-                        petListJSONtextView.text = body.toString()
+                        petListJSONString = body.toString()
+                        canContinue = 1
                     }
                 }catch (e: Exception)
                 {
-
+                    println("ERROR in getPetListInfo()")
+                    println(e)
                 }
             }
             override fun onFailure(call: Call?, e: IOException?) {
-
+                canContinue = 2
+                println("getPetListInfo onFailure")
+                println(e)
             }
         })
     }
-
 
     fun playPurrSound(view: View){
         val mp = MediaPlayer.create(this, R.raw.catpurr)
         mp.start()
     }
+
+    fun playMeowSound(){
+        val mp = MediaPlayer.create(this, R.raw.catmeow)
+        mp.start()
+    }
+
 }

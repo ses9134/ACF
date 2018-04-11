@@ -9,14 +9,13 @@ import kotlinx.android.synthetic.main.activity_start_screen.*
 
 class StartScreen : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start_screen)
+
     }
 
-
+    // this launches the test Get Pet Info Test Activity
     fun launchGetPetInfoTestActivity(view: View) {
         // Create an Intent to start the TestNetwork Activity
         val testNetworkIntent = Intent(this, getPetInfoTestActivity::class.java)
@@ -24,6 +23,7 @@ class StartScreen : AppCompatActivity() {
         startActivity(testNetworkIntent)
     }
 
+    // this launches the add pet activity
     fun launchAddPetPageActivity(view: View) {
         // Create an Intent to start the Add Pet Page Activity
         val addPetIntent = Intent(this, addPetPage::class.java)
@@ -31,6 +31,7 @@ class StartScreen : AppCompatActivity() {
         startActivity(addPetIntent)
     }
 
+    // this launches the initial connection activity
     fun launchConnectToFeederActivity(view: View) {
         // Create an Intent to start the Add Pet Page Activity
         val connectToFeederIntent = Intent(this, connectToFeederActivity::class.java)

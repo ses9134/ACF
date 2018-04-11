@@ -32,24 +32,24 @@
         android:background="@color/buttonBackground"
         android:text="Add Pet"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/listView2"
+        app:layout_constraintEnd_toStartOf="@+id/catShortFeedingSchedulelistView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listView" />
+        app:layout_constraintTop_toBottomOf="@+id/catNamelistView" />
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/catNamelistView"
         android:layout_width="121dp"
         android:layout_height="405dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/cardview_light_background"
-        app:layout_constraintEnd_toStartOf="@+id/listView2"
+        app:layout_constraintEnd_toStartOf="@+id/catShortFeedingSchedulelistView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <ListView
-        android:id="@+id/listView2"
+        android:id="@+id/catShortFeedingSchedulelistView"
         android:layout_width="238dp"
         android:layout_height="208dp"
         android:layout_marginBottom="8dp"
