@@ -1,5 +1,6 @@
 package com.example.shabab.acf
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,47 +20,44 @@ class addPetPage : AppCompatActivity() {
         setContentView(R.layout.activity_add_pet_page)
     }
 
-    fun addPetToDatabase(view: View){
-
+    // UPDATE THIS METHOD IN THE EVENT THAT A PET IS BEING UPDATED
+    fun addPetToDatabase(view: View)
+    {
         var petName = petNameEditText.text.toString()
-        var petAge = petAgeEditText.text.toString()
-        var petWeight = petWeightEditText.text.toString()
-        var petFeedTime = "2304"
-
-
-        val gson  = GsonBuilder().setPrettyPrinting().create()
-        val pet = initPet(petName, petAge, petWeight, petFeedTime)
-        val jsonPet: String = gson.toJson(pet)
-
-        // instantiate an OkHttpClient and create a Request object
-        //val JSON = MediaType.parse("application/json; charset=us-ascii")
-        val JSON = MediaType.parse("application/json")
-        val client = OkHttpClient()
-        val body = RequestBody.create(JSON, jsonPet.toString())
-        val url = "http://" + ACF_IP_ADDRESS + "/pets/name/" + petName
-
-        // request a post message
-        val request = Request.Builder()
-                .url(url)
-                .addHeader("Accept", "*/*")
-                .post(body)
-                .build()
-
-        client.newCall(request).enqueue(object: Callback {
-            // occurs on response
-            override fun onResponse(call: Call?, response: Response?) {
-                // get the JSON as a string
-                val body = response?.body()?.string()
-                println("PET INFO SENT!")
-                println(body)
-            }
-            override fun onFailure(call: Call?, e: IOException?) {
-                println("Failed to execute request:  ADD PET")
-            }
-        })
+        var petAge = petAgeEditText.text.toString().toInt()
+        var petWeight = petWeightEditText.text.toString().toInt()
+        var petFeedTimes = buildEmptyFeedTime()
+        var petServSize = 0.toFloat()
+        var petFeederID = 0
+        var petTagID = "0000000"
+        //fun initPet(name : String, age : Int, weight : Int, food_quantity: Float, feed_times : FeedTime, feeder_id: Int, tag_id: String) : Pet{
+        val pet = initPet(petName, petAge, petWeight, petServSize, petFeedTimes, petFeederID, petTagID)
+        UpdatePet(pet)
     }
 
+    fun launchPetListProfilePage() {
+        // make the request to get all pets
+        getAllPets()
+        println(petListJSONString)
+
+        if (canContinue == 1)
+        {
+            canContinue = 0
+            // Create an Intent to start the TestNetwork Activity
+            val petProfileListIntent = Intent(this, petListProfilePage::class.java)
+            // Start the TestNetwork Activity
+            startActivity(petProfileListIntent)
+        }
+        else if (canContinue == 0)
+        {
+            val confirmationToast = Toast.makeText(this, "Select button again to confirm", Toast.LENGTH_SHORT)
+            confirmationToast.show()
+        }
+        else
+        {
+            val errorToast = Toast.makeText(this, "Did not receive all pets. Try Again.", Toast.LENGTH_SHORT)
+            errorToast.show()
+        }
+    }
 
 }
-
-//class PetInfo(val name: String, val age: String, val weight: String, val feed_times: Array<String>)

@@ -26,7 +26,7 @@ class connectToFeederActivity : AppCompatActivity() {
         getAllPets()
         println(petListJSONString)
 
-        if (canContinue == 1)
+        if (canContinue == 0)
         {
             canContinue = 0
             playMeowSound()
@@ -35,9 +35,10 @@ class connectToFeederActivity : AppCompatActivity() {
             // Start the TestNetwork Activity
             startActivity(petProfileListIntent)
         }
-        else if (canContinue == 0)
+        else if (canContinue == 1)
         {
-            val confirmationToast = Toast.makeText(this, "Select CONNECT again to confirm connection", Toast.LENGTH_SHORT)
+            playPurrSound()
+            val confirmationToast = Toast.makeText(this, "Select button again to confirm", Toast.LENGTH_SHORT)
             confirmationToast.show()
         }
         else
@@ -89,6 +90,11 @@ class connectToFeederActivity : AppCompatActivity() {
     }
 
     fun playPurrSound(view: View){
+        val mp = MediaPlayer.create(this, R.raw.catpurr)
+        mp.start()
+    }
+
+    fun playPurrSound(){
         val mp = MediaPlayer.create(this, R.raw.catpurr)
         mp.start()
     }
